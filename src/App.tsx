@@ -1,6 +1,10 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import logo from './logo.svg'
+import './App.css'
+
+import { observer } from 'mobx-react'
+import { CountStore } from './stores/CountStore'
+import { action } from 'mobx'
 
 function App() {
   return (
@@ -18,9 +22,15 @@ function App() {
         >
           Learn React
         </a>
+        <p>{CountStore.count}</p>
+        <button onClick={action(e => {
+          e.stopPropagation()
+          CountStore.increment()
+        })}>Increment</button>
+        <button onClick={() => CountStore.decrement()}>Decrement</button>
       </header>
     </div>
-  );
+  )
 }
 
-export default App;
+export default observer(App)
